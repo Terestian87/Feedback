@@ -15,6 +15,8 @@ const Users = () => {
     const [asnwers, setAnswers] = useState([]);
 
 
+    const [chosenOne, setChosenOne] = useState()
+
 
 
     //Fetch data in asyn
@@ -48,9 +50,11 @@ const Users = () => {
     }
 
     //conditional rendering on click
-    const handleClick = () => {
+    const handleFirstClick = (e) => {
+        setChosenOne(e.target.value)
         setViewList(!viewList)
         handleQuestData()
+
     }
     const handleNext = () => {
         if (questionNum >= questions.length - 1) {
@@ -72,8 +76,6 @@ const Users = () => {
         handleNext()
     }
 
-
-
     return (
         <>
             {viewList &&
@@ -85,7 +87,7 @@ const Users = () => {
                                     <img src={avatar} alt="avatar of user" className="avatar" />
                                     <div className="fullName">{firstName} {lastName}</div>
                                 </div>
-                                <button className="btn card-right" onClick={handleClick}>Leave Feedback</button>
+                                <button className="btn card-right" value={id} onClick={handleFirstClick}>Leave Feedback</button>
                             </div>
                         )
                     })
