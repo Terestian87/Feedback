@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import '../styles/users.css'
 import Rating from './Rating'
 import Text from './Text'
+import Choice from './Choice'
 //functional component
 const Users = () => {
     const [user, setUser] = useState([]);
@@ -11,7 +12,7 @@ const Users = () => {
     const [questionType, setQuestionType] = useState('');
     const [required, setRequired] = useState();
     const [currentQ, setCurrentQ] = useState([]);
-
+    const [asnwers, setAnswers] = useState([]);
 
 
 
@@ -70,27 +71,8 @@ const Users = () => {
     const handleSkip = () => {
         handleNext()
     }
-    // const Scale = () => <Rating />
-    // const Text = () => <Text />
 
-    // import MultipleChoice from './choice'
-    const MultipleChoice = () => {
 
-        return (
-            <>
-                {currentQ.options.map(({ value, label }) => {
-                    return (
-                        <button
-                            onClick={handleNext}
-                            className="answer-btn"
-                            key={value}
-                            value={value}>{label}
-                        </button>
-                    )
-                })}
-            </>
-        )
-    }
 
     return (
         <>
@@ -116,7 +98,7 @@ const Users = () => {
                     <h2 className="question-label">{currentQ.label}</h2>
                     <div className="feedback-container">
                         {questionType === 'scale' && <Rating />}
-                        {questionType === 'multipleChoice' && <MultipleChoice />}
+                        {questionType === 'multipleChoice' && <Choice data={currentQ} handleNext={handleNext} />}
                         {questionType === 'text' && <Text />}
                     </div>
                     <div className="nav-tools">
