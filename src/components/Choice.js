@@ -1,16 +1,24 @@
-import { React } from 'react'
+import React, { useState } from 'react'
 
-const Choice = ({ data, handleClick }) => {
-    console.log(data)
+
+const Choice = ({ data, handleNext }) => {
+    const [choice, setChoice] = useState('')
+    const handleChoice = (e) => {
+        setChoice(e.target.value)
+        handleNext()
+    }
     return (
         <>
-            {data.map(({ value, label }) => {
+            {data.options.map(({ value, label }) => {
                 return (
                     <button
-                        onClick={handleClick}
+                        // onClick={handleChoice}
                         className="answer-btn"
                         key={value}
-                        value={value}>{label}
+                        value={value}
+                        onClick={handleChoice}
+                    >
+                        {label}
                     </button>
                 )
             })}
