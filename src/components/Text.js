@@ -2,9 +2,9 @@ import React, { useState } from 'react'
 const Text = () => {
     const [text, setText] = useState('')
 
+
     const handleChange = (e) => {
         setText(e.target.value)
-        console.log(text)
     }
 
     return (
