@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import '../styles/users.css'
-
+import Rating from './Rating'
+import Text from './Text'
 //functional component
 const Users = () => {
     const [user, setUser] = useState([]);
@@ -10,6 +11,9 @@ const Users = () => {
     const [questionType, setQuestionType] = useState('');
     const [required, setRequired] = useState();
     const [currentQ, setCurrentQ] = useState([]);
+
+
+
 
 
     //Fetch data in asyn
@@ -33,6 +37,7 @@ const Users = () => {
         fetchQuestions()
         //dependency set to empty array so useEffect loaded only once
     }, [])
+
 
     //set current question data for accessing during rendering
     const handleQuestData = (newQuestion = 0) => {
@@ -65,22 +70,19 @@ const Users = () => {
     const handleSkip = () => {
         handleNext()
     }
-    const Scale = () => { return <div>scale</div> }
-    const Text = () => {
-        return (
-            <input type="text">
-            </input>
-        )
-    }
-    // const [answers, setAnswers] = useState([])
+    // const Scale = () => <Rating />
+    // const Text = () => <Text />
+
+    // import MultipleChoice from './choice'
     const MultipleChoice = () => {
+
         return (
             <>
                 {currentQ.options.map(({ value, label }) => {
                     return (
                         <button
-                            className="answer-btn"
                             onClick={handleNext}
+                            className="answer-btn"
                             key={value}
                             value={value}>{label}
                         </button>
@@ -89,7 +91,6 @@ const Users = () => {
             </>
         )
     }
-    //convert to switch
 
     return (
         <>
@@ -114,7 +115,7 @@ const Users = () => {
                 < div className="question-div">
                     <h2 className="question-label">{currentQ.label}</h2>
                     <div className="feedback-container">
-                        {questionType === 'scale' && <Scale />}
+                        {questionType === 'scale' && <Rating />}
                         {questionType === 'multipleChoice' && <MultipleChoice />}
                         {questionType === 'text' && <Text />}
                     </div>
