@@ -5,7 +5,7 @@ const Choice = ({ data, handleNext }) => {
     const [choice, setChoice] = useState('')
     const handleChoice = (e) => {
         setChoice(e.target.value)
-        handleNext()
+        // handleNext()
     }
     return (
         <>
