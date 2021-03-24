@@ -16,6 +16,19 @@ const Users = () => {
     const [chosenOne, setChosenOne] = useState()
 
 
+    //choice handler
+    const [choice, setChoice] = useState('')
+    const handleChoice = (e) => {
+        setChoice(e.target.value)
+    }
+    //rating handler
+    const [vote, setVote] = useState()
+    const handleVote = (e) => {
+        setVote(e.target.value)
+    }
+
+
+
     //Fetch data in asyn
     const fetchUserData = async () => {
         //take data from json in url and store in res const
@@ -74,11 +87,6 @@ const Users = () => {
     }
 
 
-    //choice handler
-    const [choice, setChoice] = useState('')
-    const handleChoice = (e) => {
-        setChoice(e.target.value)
-    }
     return (
         <>
             {viewList &&
@@ -102,7 +110,7 @@ const Users = () => {
                 <div className="question-div">
                     <h2 className="question-label">{currentQ.label}</h2>
                     <div className="feedback-container">
-                        {questionType === 'scale' && <Rating />}
+                        {questionType === 'scale' && <Rating handleVote={handleVote} />}
                         {questionType === 'multipleChoice' && <Choice data={currentQ} handleChoice={handleChoice} />}
                         {questionType === 'text' && <Text />}
                     </div>

@@ -1,11 +1,8 @@
 import React, { useState } from 'react'
 import '../styles/scale.css'
-const Rating = () => {
+const Rating = ({ handleVote }) => {
 
-    const [vote, setVote] = useState()
-    const handleVote = (e) => {
-        setVote(e.target.value)
-    }
+
     return (
         <div className="scale-div">
             <div className="box">
@@ -37,6 +34,13 @@ const Rating = () => {
 }
 
 export default Rating
+
+
+
+
+
+
+
 // const returnedInput = () => {
 //     for (let i = 0; i <= 10; i = i + 1) {
 //         return <>
