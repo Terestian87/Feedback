@@ -13,10 +13,7 @@ const Users = () => {
     const [required, setRequired] = useState();
     const [currentQ, setCurrentQ] = useState([]);
     const [asnwers, setAnswers] = useState([]);
-
-
     const [chosenOne, setChosenOne] = useState()
-
 
 
     //Fetch data in asyn
@@ -34,13 +31,13 @@ const Users = () => {
         const questionsData = await questionsRes.json()
         setQuestions(questionsData)
     }
+
     // componentDidMount functional style
     useEffect(() => {
         fetchUserData()
         fetchQuestions()
         //dependency set to empty array so useEffect loaded only once
     }, [])
-
 
     //set current question data for accessing during rendering
     const handleQuestData = (newQuestion = 0) => {
@@ -76,6 +73,12 @@ const Users = () => {
         handleNext()
     }
 
+
+    //choice handler
+    const [choice, setChoice] = useState('')
+    const handleChoice = (e) => {
+        setChoice(e.target.value)
+    }
     return (
         <>
             {viewList &&
@@ -96,11 +99,11 @@ const Users = () => {
             }
             {
                 !viewList &&
-                < div className="question-div">
+                <div className="question-div">
                     <h2 className="question-label">{currentQ.label}</h2>
                     <div className="feedback-container">
                         {questionType === 'scale' && <Rating />}
-                        {questionType === 'multipleChoice' && <Choice data={currentQ} handleNext={handleNext} />}
+                        {questionType === 'multipleChoice' && <Choice data={currentQ} handleChoice={handleChoice} />}
                         {questionType === 'text' && <Text />}
                     </div>
                     <div className="nav-tools">

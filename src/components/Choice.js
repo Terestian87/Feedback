@@ -1,12 +1,8 @@
 import React, { useState } from 'react'
 
 
-const Choice = ({ data, handleNext }) => {
-    const [choice, setChoice] = useState('')
-    const handleChoice = (e) => {
-        setChoice(e.target.value)
-        // handleNext()
-    }
+const Choice = ({ data, handleChoice }) => {
+
     return (
         <>
             {data.options.map(({ value, label }) => {
