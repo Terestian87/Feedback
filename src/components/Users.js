@@ -5,29 +5,31 @@ import Text from './Text'
 import Choice from './Choice'
 //functional component
 const Users = () => {
-    const [user, setUser] = useState([]);
+    const [users, setUsers] = useState([]);
     const [questions, setQuestions] = useState([]);
-    const [viewList, setViewList] = useState(true);
     const [questionNum, setquestionNum] = useState(0);
-    const [questionType, setQuestionType] = useState('');
-    const [required, setRequired] = useState();
-    const [currentQ, setCurrentQ] = useState([]);
-    const [asnwers, setAnswers] = useState([]);
-    const [chosenOne, setChosenOne] = useState()
-
-
-    //choice handler
-    const [choice, setChoice] = useState('')
-    const handleChoice = (e) => {
-        setChoice(e.target.value)
-    }
+    const [currentQ, setCurrentQ] = useState({});
+    const [answers, setAnswers] = useState([]);
+    // sta gia in user quindi non serve
+    const [chosenId, setChosenId] = useState(null)
+    // <<<<<<>>>>>>>>>>>>>>>>
+    // TODO: Rimuovi e lascia uno solo
     //rating handler
     const [vote, setVote] = useState()
     const handleVote = (e) => {
         setVote(e.target.value)
     }
+    //choice handler
+    const [choice, setChoice] = useState('')
+    const handleChoice = (e) => {
+        setChoice(e.target.value)
+    }
 
-
+    // // text handler
+    const [text, setText] = useState('')
+    const handleChange = (e) => {
+        setText(e.target.value)
+    }
 
     //Fetch data in asyn
     const fetchUserData = async () => {
@@ -36,7 +38,7 @@ const Users = () => {
         //make response usable
         const userData = await userRes.json()
         // call setUser hook to store response (data) in user
-        setUser(userData)
+        setUsers(userData)
     }
 
     const fetchQuestions = async () => {
@@ -51,28 +53,31 @@ const Users = () => {
         fetchQuestions()
         //dependency set to empty array so useEffect loaded only once
     }, [])
-
-    //set current question data for accessing during rendering
-    const handleQuestData = (newQuestion = 0) => {
-        setQuestionType(questions[newQuestion].type)
-        setCurrentQ(questions[newQuestion])
-        setRequired(questions[newQuestion].required)
-    }
+    //                                                                                                  <<>>
+    // TODO: Qui puoi controllare se hai già una risposta o no e in quel caso settarla
+    useEffect(() => {
+        setCurrentQ(questions[questionNum])
+    }, [questionNum, questions])
 
     //conditional rendering on click
-    const handleFirstClick = (e) => {
-        setChosenOne(e.target.value)
-        setViewList(!viewList)
-        handleQuestData()
-
+    const handleFirstClick = (id) => {
+        setChosenId(id)
     }
+    // const storeAnswer = (val)=>{
+    //     setAnswers({
+    //         clickedChoice: [...clickedChoice,]
+    //     })
+    // }
     const handleNext = () => {
         if (questionNum >= questions.length - 1) {
             return
         }
+        setAnswers({
+            clickedChoice: vote
+        })
         const newQuestion = questionNum + 1
         setquestionNum(newQuestion)
-        handleQuestData(newQuestion)
+
     }
     const handlePrevious = () => {
         if (questionNum <= 0) {
@@ -80,25 +85,23 @@ const Users = () => {
         }
         const newQuestion = questionNum - 1
         setquestionNum(newQuestion)
-        handleQuestData(newQuestion)
     }
     const handleSkip = () => {
         handleNext()
     }
 
-
     return (
         <>
-            {viewList &&
+            {!chosenId &&
                 <div className="user-list">
-                    {user.map(({ firstName, avatar, id, lastName }) => {
+                    {users.map(({ firstName, avatar, id, lastName }) => {
                         return (
                             <div key={id} className="userCard">
                                 <div className="card-left">
                                     <img src={avatar} alt="avatar of user" className="avatar" />
                                     <div className="fullName">{firstName} {lastName}</div>
                                 </div>
-                                <button className="btn card-right" value={id} onClick={handleFirstClick}>Leave Feedback</button>
+                                <button className="btn card-right" onClick={() => handleFirstClick(id)}>Leave Feedback</button>
                             </div>
                         )
                     })
@@ -106,17 +109,17 @@ const Users = () => {
                 </div>
             }
             {
-                !viewList &&
+                chosenId &&
                 <div className="question-div">
                     <h2 className="question-label">{currentQ.label}</h2>
                     <div className="feedback-container">
-                        {questionType === 'scale' && <Rating handleVote={handleVote} />}
-                        {questionType === 'multipleChoice' && <Choice data={currentQ} handleChoice={handleChoice} />}
-                        {questionType === 'text' && <Text />}
+                        {currentQ.type === 'scale' && <Rating handleVote={handleVote} />}
+                        {currentQ.type === 'multipleChoice' && <Choice data={currentQ} handleChoice={handleChoice} />}
+                        {currentQ.type === 'text' && <Text text={text} handleChange={handleChange} />}
                     </div>
                     <div className="nav-tools">
                         <button onClick={handlePrevious}>Previous</button>
-                        {!required &&
+                        {!currentQ.required &&
                             <button onClick={handleSkip}>Skip</button>
                         }
                         <button onClick={handleNext}>Next</button>
