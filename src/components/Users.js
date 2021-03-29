@@ -10,25 +10,13 @@ const Users = () => {
     const [questionNum, setquestionNum] = useState(0);
     const [currentQ, setCurrentQ] = useState({});
     const [answers, setAnswers] = useState([]);
-    // sta gia in user quindi non serve
     const [chosenId, setChosenId] = useState(null)
-    // <<<<<<>>>>>>>>>>>>>>>>
-    // TODO: Rimuovi e lascia uno solo
-    //rating handler
-    const [vote, setVote] = useState()
-    const handleVote = (e) => {
-        setVote(e.target.value)
-    }
+
+
     //choice handler
     const [choice, setChoice] = useState('')
     const handleChoice = (e) => {
         setChoice(e.target.value)
-    }
-
-    // // text handler
-    const [text, setText] = useState('')
-    const handleChange = (e) => {
-        setText(e.target.value)
     }
 
     //Fetch data in asyn
@@ -63,30 +51,36 @@ const Users = () => {
     const handleFirstClick = (id) => {
         setChosenId(id)
     }
-    // const storeAnswer = (val)=>{
-    //     setAnswers({
-    //         clickedChoice: [...clickedChoice,]
-    //     })
-    // }
+
+    const handleSetAnswers = (arr, value, index) => {
+        const updatedArr = arr.slice();
+        updatedArr[index] = value;
+        setAnswers(updatedArr)
+        setChoice('')
+    }
+
     const handleNext = () => {
         if (questionNum >= questions.length - 1) {
             return
         }
-        setAnswers({
-            clickedChoice: vote
-        })
+        if (currentQ.required == true && choice == '') {
+            return
+        }
+        handleSetAnswers(answers, choice, questionNum)
         const newQuestion = questionNum + 1
         setquestionNum(newQuestion)
-
     }
     const handlePrevious = () => {
         if (questionNum <= 0) {
             return
         }
+
         const newQuestion = questionNum - 1
         setquestionNum(newQuestion)
+        setChoice('')
     }
     const handleSkip = () => {
+        setChoice('')
         handleNext()
     }
 
@@ -113,9 +107,9 @@ const Users = () => {
                 <div className="question-div">
                     <h2 className="question-label">{currentQ.label}</h2>
                     <div className="feedback-container">
-                        {currentQ.type === 'scale' && <Rating handleVote={handleVote} />}
+                        {currentQ.type === 'scale' && <Rating handleChoice={handleChoice} />}
                         {currentQ.type === 'multipleChoice' && <Choice data={currentQ} handleChoice={handleChoice} />}
-                        {currentQ.type === 'text' && <Text text={text} handleChange={handleChange} />}
+                        {currentQ.type === 'text' && <Text choice={choice} handleChoice={handleChoice} />}
                     </div>
                     <div className="nav-tools">
                         <button onClick={handlePrevious}>Previous</button>
