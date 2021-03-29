@@ -1,11 +1,5 @@
-import React, { useState } from 'react'
-const Text = () => {
-    const [text, setText] = useState('')
-
-
-    const handleChange = (e) => {
-        setText(e.target.value)
-    }
+import React from 'react'
+const Text = ({ handleChange, text }) => {
 
     return (
         <div className="text-div">
