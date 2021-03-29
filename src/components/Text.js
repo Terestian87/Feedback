@@ -1,5 +1,5 @@
 import React from 'react'
-const Text = ({ handleChange, text }) => {
+const Text = ({ handleChoice, choice }) => {
 
     return (
         <div className="text-div">
@@ -8,8 +8,8 @@ const Text = ({ handleChange, text }) => {
                 rows="20"
                 className="textarea"
                 placeholder="Write something.."
-                value={text}
-                onChange={handleChange}
+                value={choice}
+                onChange={handleChoice}
             />
         </div>
 
