@@ -14,7 +14,7 @@ const Navbar = () => {
                     <ul>
                         <li><Link className="nav-link" to="/">Share Feedback</Link></li>
                         <li>altra pagina</li>
-                        <li>altr apagin ancora</li>
+                        <li>altra pagina ancora</li>
                     </ul>
                 </div>
             </nav>
