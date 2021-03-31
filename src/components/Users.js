@@ -7,12 +7,11 @@ import Choice from './Choice'
 const Users = () => {
     const [users, setUsers] = useState([]);
     const [questions, setQuestions] = useState([]);
-    const [questionNum, setquestionNum] = useState(0);
+    const [questionNum, setQuestionNum] = useState(0);
     const [currentQ, setCurrentQ] = useState({});
     const [answers, setAnswers] = useState([]);
-    const [chosenId, setChosenId] = useState(null)
-
-
+    const [chosenId, setChosenId] = useState(null);
+    const [completed, setCompleted] = useState({})
     //choice handler
     const [choice, setChoice] = useState('')
     const handleChoice = (e) => {
@@ -39,13 +38,12 @@ const Users = () => {
     useEffect(() => {
         fetchUserData()
         fetchQuestions()
-        //dependency set to empty array so useEffect loaded only once
     }, [])
-    //                                                                                                  <<>>
-    // TODO: Qui puoi controllare se hai già una risposta o no e in quel caso settarla
+
     useEffect(() => {
         setCurrentQ(questions[questionNum])
     }, [questionNum, questions])
+
 
     //conditional rendering on click
     const handleFirstClick = (id) => {
@@ -59,30 +57,51 @@ const Users = () => {
         setChoice('')
     }
 
+    const handleCompletedFeedback = (user, answers) => {
+        const paired = {
+            id: user,
+            answers: [answers]
+        }
+        // const defaultNum = questionNum - 8
+        // setCompleted(paired)
+        // setChosenId(null)
+        // setQuestionNum(0)
+        // setAnswers('')
+        // setCurrentQ({})
+    }
+
+    ///reset to factory settings doesn t work>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
     const handleNext = () => {
-        if (questionNum >= questions.length - 1) {
+        if (questionNum === questions.length - 1) {
+            handleCompletedFeedback(chosenId, answers)
+            handleSetAnswers(answers, choice, questionNum)
+            const newQuestion = 0
+            setQuestionNum(newQuestion)
+            const defaultId = null
+            setChosenId(defaultId)
             return
         }
-        if (currentQ.required == true && choice == '') {
-            return
-        }
+        if (currentQ.required === true && choice === '') { return }
         handleSetAnswers(answers, choice, questionNum)
         const newQuestion = questionNum + 1
-        setquestionNum(newQuestion)
+        setQuestionNum(newQuestion)
     }
+
     const handlePrevious = () => {
         if (questionNum <= 0) {
             return
         }
-
         const newQuestion = questionNum - 1
-        setquestionNum(newQuestion)
+        setQuestionNum(newQuestion)
         setChoice('')
     }
+
     const handleSkip = () => {
         setChoice('')
         handleNext()
     }
+
 
     return (
         <>
