@@ -8,7 +8,6 @@ const Users = () => {
     const [users, setUsers] = useState([]);
     const [questions, setQuestions] = useState([]);
     const [questionNum, setQuestionNum] = useState(0);
-    const [currentQ, setCurrentQ] = useState({});
     const [answers, setAnswers] = useState([]);
     const [chosenId, setChosenId] = useState(null);
     const [completed, setCompleted] = useState({})
@@ -17,6 +16,8 @@ const Users = () => {
     const handleChoice = (e) => {
         setChoice(e.target.value)
     }
+
+
 
     //Fetch data in asyn
     const fetchUserData = async () => {
@@ -40,11 +41,6 @@ const Users = () => {
         fetchQuestions()
     }, [])
 
-    useEffect(() => {
-        setCurrentQ(questions[questionNum])
-    }, [questionNum, questions])
-
-
     //conditional rendering on click
     const handleFirstClick = (id) => {
         setChosenId(id)
@@ -57,20 +53,19 @@ const Users = () => {
         setChoice('')
     }
 
+    //change it to boolean
     const handleCompletedFeedback = (user, answers) => {
         const paired = {
             id: user,
             answers: [answers]
         }
         // const defaultNum = questionNum - 8
-        // setCompleted(paired)
-        // setChosenId(null)
-        // setQuestionNum(0)
-        // setAnswers('')
-        // setCurrentQ({})
+        setCompleted(paired)
+        console.log(paired)
+        console.log(completed)
     }
 
-    ///reset to factory settings doesn t work>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
 
     const handleNext = () => {
         if (questionNum === questions.length - 1) {
@@ -82,7 +77,7 @@ const Users = () => {
             setChosenId(defaultId)
             return
         }
-        if (currentQ.required === true && choice === '') { return }
+        if (questions[questionNum].required === true && choice === '') { return }
         handleSetAnswers(answers, choice, questionNum)
         const newQuestion = questionNum + 1
         setQuestionNum(newQuestion)
@@ -98,7 +93,7 @@ const Users = () => {
     }
 
     const handleSkip = () => {
-        setChoice('')
+        setChoice(null)
         handleNext()
     }
 
@@ -124,15 +119,15 @@ const Users = () => {
             {
                 chosenId &&
                 <div className="question-div">
-                    <h2 className="question-label">{currentQ.label}</h2>
+                    <h2 className="question-label">{questions[questionNum].label}</h2>
                     <div className="feedback-container">
-                        {currentQ.type === 'scale' && <Rating handleChoice={handleChoice} />}
-                        {currentQ.type === 'multipleChoice' && <Choice data={currentQ} handleChoice={handleChoice} />}
-                        {currentQ.type === 'text' && <Text choice={choice} handleChoice={handleChoice} />}
+                        {questions[questionNum].type === 'scale' && <Rating handleChoice={handleChoice} />}
+                        {questions[questionNum].type === 'multipleChoice' && <Choice data={questions[questionNum]} handleChoice={handleChoice} />}
+                        {questions[questionNum].type === 'text' && <Text choice={choice} handleChoice={handleChoice} />}
                     </div>
                     <div className="nav-tools">
                         <button onClick={handlePrevious}>Previous</button>
-                        {!currentQ.required &&
+                        {!questions[questionNum].required &&
                             <button onClick={handleSkip}>Skip</button>
                         }
                         <button onClick={handleNext}>Next</button>
