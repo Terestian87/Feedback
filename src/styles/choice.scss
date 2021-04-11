@@ -1,0 +1,28 @@
+.choice-div{
+    display: flex;
+    flex-direction: row;
+    position:relative;
+    background: rgb(190,236,247);
+    background: linear-gradient(90deg, rgba(190,236,247,1) 0%, rgba(157,219,250,1) 48%, rgba(143,161,255,1) 100%);
+
+    input {
+         display:none;
+         &:checked + label  {
+            background:transparent;  
+         }
+    }
+    label{
+   
+        border:3px solid black;
+            cursor:pointer;
+            justify-content: center;
+            align-items: center;
+            transition:0.5s;
+            background-color:#fff;
+            color:#000;
+        }
+        label:hover {
+                background:transparent;  
+        }
+
+}
