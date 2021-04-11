@@ -118,8 +118,8 @@ const Users = ({ getStore }) => {
     }
 
     const handleNext = () => {
-        if (questionNum === questions.length - 1) {
-            handleCompletedFeedback(chosenId)
+        if (questionNum === questions.length - 1) { //when is last question
+            //is submitted true
             handleSetAnswers(choice, questionNum)
             const newQuestion = 0
             setQuestionNum(newQuestion)
@@ -151,17 +151,18 @@ const Users = ({ getStore }) => {
         <>
             {!chosenId &&
                 <div className="user-list">
-                    {users.map(({ firstName, avatar, id, lastName }) => {
-                        return (
-                            <div key={id} className="userCard">
-                                <div className="card-left">
-                                    <img src={avatar} alt="avatar of user" className="avatar" />
-                                    <div className="fullName">{firstName} {lastName}</div>
+                    {
+                        users.map(({ firstName, avatar, id, lastName }) => {
+                            return (
+                                <div key={id} className="userCard">
+                                    <div className="card-left">
+                                        <img src={avatar} alt="avatar of user" className="avatar" />
+                                        <div className="fullName">{firstName} {lastName}</div>
+                                    </div>
+                                    <button className="btn card-right" onClick={() => handleFirstClick(id)}>Leave Feedback</button>
                                 </div>
-                                <button className="btn card-right" onClick={() => handleFirstClick(id)}>Leave Feedback</button>
-                            </div>
-                        )
-                    })
+                            )
+                        })
                     }
                 </div>
             }
@@ -171,7 +172,7 @@ const Users = ({ getStore }) => {
                     <h2 className="question-label">{questions[questionNum].label}</h2>
                     <div className="feedback-container">
                         {questions[questionNum].type === 'scale' && <Rating handleChoice={handleChoice} choice={choice} />}
-                        {questions[questionNum].type === 'multipleChoice' && <Choice data={questions[questionNum]} handleChoice={handleChoice} />}
+                        {questions[questionNum].type === 'multipleChoice' && <Choice data={questions[questionNum]} handleChoice={handleChoice} choice={choice} />}
                         {questions[questionNum].type === 'text' && <Text choice={choice} handleChoice={handleChoice} />}
                     </div>
                     <div className="nav-tools">
