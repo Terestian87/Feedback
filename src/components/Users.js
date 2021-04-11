@@ -151,18 +151,17 @@ const Users = ({ getStore }) => {
         <>
             {!chosenId &&
                 <div className="user-list">
-                    {
-                        users.map(({ firstName, avatar, id, lastName }) => {
-                            return (
-                                <div key={id} className="userCard">
-                                    <div className="card-left">
-                                        <img src={avatar} alt="avatar of user" className="avatar" />
-                                        <div className="fullName">{firstName} {lastName}</div>
-                                    </div>
-                                    <button className="btn card-right" onClick={() => handleFirstClick(id)}>Leave Feedback</button>
+                    {users.map(({ firstName, avatar, id, lastName }) => {
+                        return (
+                            <div key={id} className="userCard">
+                                <div className="card-left">
+                                    <img src={avatar} alt="avatar of user" className="avatar" />
+                                    <div className="fullName">{firstName} {lastName}</div>
                                 </div>
-                            )
-                        })
+                                <button className="btn card-right" onClick={() => handleFirstClick(id)}>Leave Feedback</button>
+                            </div>
+                        )
+                    })
                     }
                 </div>
             }
