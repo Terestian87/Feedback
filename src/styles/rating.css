@@ -1,4 +1,4 @@
-.scale-div {
+.rating-div {
   border: 2px solid green;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -67,4 +67,4 @@
 .rating label:hover {
   background: transparent;
 }
-/*# sourceMappingURL=scale.css.map */
+/*# sourceMappingURL=rating.css.map */
