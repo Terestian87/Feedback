@@ -197,6 +197,6 @@ export default Users
 
 
 
-//impsiotare is submitted da non fare ricvedfere gli user completi nella lsit ainiziale in modo che a seconda del true o false compaia un bottone diverso
+//impostare isSubmitted da non fare rivedfere gli user completi nella lista iniziale in modo che a seconda del true o false compaia un bottone diverso
 
 //ultima pagina mostrare gli utienti per cui issubmitted è false filtrando quelli gia completi
