@@ -12,7 +12,8 @@ const Users = ({ getStore }) => {
     const [questionNum, setQuestionNum] = useState(0);
     const [chosenId, setChosenId] = useState(null);
     const [completed, setCompleted] = useState(false);
-    const [feedbackData, setFeedbackData] = useState({})
+    const [feedbackData, setFeedbackData] = useState({});
+
     //choice handler
     const [choice, setChoice] = useState(null)
 
