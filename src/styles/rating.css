@@ -36,14 +36,6 @@
   background: linear-gradient(to right, #f00, #ff0, #0f0);
 }
 
-.rating input {
-  display: none;
-}
-
-.rating input:checked + label {
-  background: transparent;
-}
-
 .rating label {
   border: 1px solid #24b893;
   display: -webkit-box;
@@ -62,6 +54,14 @@
   transition: 0.5s;
   background-color: #fff;
   color: #000;
+}
+
+.rating label input {
+  display: none;
+}
+
+.rating label.selected {
+  background-color: transparent;
 }
 
 .rating label:hover {

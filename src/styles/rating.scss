@@ -20,14 +20,10 @@
     margin:3px;
     position:relative;
     background:linear-gradient(to right, #f00, #ff0 ,#0f0);
-    input {
-         display:none;
-         &:checked + label  {
-            background:transparent;  
-         }
-    }
-    label{
-    border:1px solid rgb(36, 184, 147);
+
+    
+    label {
+        border:1px solid rgb(36, 184, 147);
         display:flex;
         cursor:pointer;
         width:100px;
@@ -37,7 +33,16 @@
         transition:0.5s;
         background-color:#fff;
         color:#000;
+        
+        input {
+             display:none;
+        }
+
+        &.selected {
+            background-color: transparent;
+        }
     }
+
     label:hover {
             background:transparent;  
     }
