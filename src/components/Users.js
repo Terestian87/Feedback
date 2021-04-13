@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import '../styles/users.css'
 import Rating from './Rating'
 import Text from './Text'
@@ -10,30 +11,10 @@ const Users = ({ getStore }) => {
     const [questions, setQuestions] = useState([]);
     const [questionNum, setQuestionNum] = useState(0);
     const [chosenId, setChosenId] = useState(null);
-    // const [completed, setCompleted] = useState(false);
+    const [completed, setCompleted] = useState(false);
     const [feedbackData, setFeedbackData] = useState({})
-
     //choice handler
-    const [choice, setChoice] = useState('')
-    const handleChoice = (e) => {
-        setChoice(e.target.value)
-    }
-
-    //Fetch data in asyn
-    const fetchUserData = async () => {
-        //take data from json in url and store in res const
-        const userRes = await fetch('https://frontend-exercise-api.netlify.app/.netlify/functions/server/users')
-        //make response usable
-        const userData = await userRes.json()
-        // call setUser hook to store response (data) in user
-        setUsers(userData)
-    }
-
-    const fetchQuestions = async () => {
-        const questionsRes = await fetch('https://frontend-exercise-api.netlify.app/.netlify/functions/server/questions')
-        const questionsData = await questionsRes.json()
-        setQuestions(questionsData)
-    }
+    const [choice, setChoice] = useState(null)
 
     // componentDidMount functional style
     useEffect(() => {
@@ -53,7 +34,7 @@ const Users = ({ getStore }) => {
             }
             setFeedbackData(newFeedbacks)
         })
-    }, [getStore]) // aggiungi completed
+    }, [getStore, completed]) // aggiungi completed
 
     useEffect(() => {
         if (!chosenId) {
@@ -68,8 +49,25 @@ const Users = ({ getStore }) => {
             }
             setChoice(answers[questionNum])
         })
-    }, [questionNum, chosenId])
+    }, [questionNum, chosenId, getStore])
 
+    console.log(feedbackData)
+
+    //Fetch data in asyn
+    const fetchUserData = async () => {
+        //take data from json in url and store in res const
+        const userRes = await fetch('https://frontend-exercise-api.netlify.app/.netlify/functions/server/users')
+        //make response usable
+        const userData = await userRes.json()
+        // call setUser hook to store response (data) in user
+        setUsers(userData)
+    }
+
+    const fetchQuestions = async () => {
+        const questionsRes = await fetch('https://frontend-exercise-api.netlify.app/.netlify/functions/server/questions')
+        const questionsData = await questionsRes.json()
+        setQuestions(questionsData)
+    }
 
     //conditional rendering on click
     const handleFirstClick = (id) => {
@@ -86,45 +84,25 @@ const Users = ({ getStore }) => {
         })
     }
 
-    const handleSetAnswers = (value, index) => {
+    const handleSetAnswers = (value, index, isSubmitted = false) => {
         getStore('feedback', async (store) => {
             const currentFeedback = await store.get(chosenId)  // data[id]
-            const { answers, isSubmitted } = currentFeedback
+            const { answers } = currentFeedback
             answers[index] = value
             await store.put({
                 isSubmitted,
                 answers
             }, chosenId)
         })
-
         setChoice('')
-    }
-
-    //change it to boolean
-    const handleCompletedFeedback = (user) => {
-        // const paired = {
-        //     id: user,
-        //     answers: [answers]
-        // }
-        // const defaultNum = questionNum - 8
-        // setCompleted(paired)
-        // getStore('feedback', store => {
-
-        //     await store.put({
-        //         issubmitted: true,
-        //         answers: paired
-        //     })
-        // })
     }
 
     const handleNext = () => {
         if (questionNum === questions.length - 1) { //when is last question
-            //is submitted true
-            handleSetAnswers(choice, questionNum)
-            const newQuestion = 0
-            setQuestionNum(newQuestion)
-            const defaultId = null
-            setChosenId(defaultId)
+            handleSetAnswers(choice, questionNum, true)
+            setQuestionNum(0)
+            setChosenId(null)
+            setCompleted(true)
             return
         }
         if (questions[questionNum].required === true && choice === '') { return }
@@ -143,22 +121,28 @@ const Users = ({ getStore }) => {
     }
 
     const handleSkip = () => {
-        setChoice(null)
         handleNext()
     }
 
     return (
         <>
-            {!chosenId &&
+            {!chosenId && !completed &&
                 <div className="user-list">
                     {users.map(({ firstName, avatar, id, lastName }) => {
+                        const isSubmitted = feedbackData[id]?.isSubmitted
+
                         return (
                             <div key={id} className="userCard">
                                 <div className="card-left">
                                     <img src={avatar} alt="avatar of user" className="avatar" />
                                     <div className="fullName">{firstName} {lastName}</div>
                                 </div>
-                                <button className="btn card-right" onClick={() => handleFirstClick(id)}>Leave Feedback</button>
+                                {
+                                    isSubmitted
+                                        ? <Link to="/my-feedback">View Feedback</Link>
+                                        : <button className="btn card-right" onClick={() => handleFirstClick(id)}>Leave Feedback</button>
+
+                                }
                             </div>
                         )
                     })
@@ -170,9 +154,9 @@ const Users = ({ getStore }) => {
                 <div className="question-div">
                     <h2 className="question-label">{questions[questionNum].label}</h2>
                     <div className="feedback-container">
-                        {questions[questionNum].type === 'scale' && <Rating handleChoice={handleChoice} choice={choice} />}
-                        {questions[questionNum].type === 'multipleChoice' && <Choice data={questions[questionNum]} handleChoice={handleChoice} choice={choice} />}
-                        {questions[questionNum].type === 'text' && <Text choice={choice} handleChoice={handleChoice} />}
+                        {questions[questionNum].type === 'scale' && <Rating handleChoice={setChoice} choice={choice} />}
+                        {questions[questionNum].type === 'multipleChoice' && <Choice data={questions[questionNum]} handleChoice={setChoice} choice={choice} />}
+                        {questions[questionNum].type === 'text' && <Text choice={choice} handleChoice={setChoice} />}
                     </div>
                     <div className="nav-tools">
                         <button onClick={handlePrevious}>Previous</button>
@@ -181,6 +165,25 @@ const Users = ({ getStore }) => {
                         }
                         <button onClick={handleNext}>Next</button>
                     </div>
+                </div>
+            }
+            {
+                completed &&
+                <div className="user-list">
+                    {users
+                        .filter(({ id }) => !feedbackData[id]?.isSubmitted)
+                        .map(({ firstName, avatar, id, lastName }) => {
+                            return (
+                                <div key={id} className="userCard">
+                                    <div className="card-left">
+                                        <img src={avatar} alt="avatar of user" className="avatar" />
+                                        <div className="fullName">{firstName} {lastName}</div>
+                                    </div>
+                                    <button className="btn card-right" onClick={() => handleFirstClick(id)}>Leave Feedback</button>
+                                </div>
+                            )
+                        })
+                    }
                 </div>
             }
         </>
@@ -193,7 +196,7 @@ export default Users
 
 
 
-//adattare le risposte aglle altre due tipi di domande
+
 //impsiotare is submitted da non fare ricvedfere gli user completi nella lsit ainiziale in modo che a seconda del true o false compaia un bottone diverso
 
 //ultima pagina mostrare gli utienti per cui issubmitted è false filtrando quelli gia completi
