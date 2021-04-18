@@ -6,9 +6,9 @@ import Text from './Text'
 import Choice from './Choice'
 //functional component
 
-const Users = ({ getStore }) => {
-    const [users, setUsers] = useState([]);
-    const [questions, setQuestions] = useState([]);
+const Users = ({ getStore, setUsers, setQuestions, users, questions }) => {
+
+
     const [questionNum, setQuestionNum] = useState(0);
     const [chosenId, setChosenId] = useState(null);
     const [completed, setCompleted] = useState(false);
