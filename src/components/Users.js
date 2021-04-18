@@ -73,7 +73,7 @@ const Users = ({ getStore }) => {
     //conditional rendering on click
     const handleFirstClick = (id) => {
         setChosenId(id)
-
+        setCompleted(false)
         getStore('feedback', async store => {
             const currentFeedback = await store.get(id)
             if (!currentFeedback) {
@@ -125,13 +125,13 @@ const Users = ({ getStore }) => {
         handleNext()
     }
 
+
     return (
         <>
-            {!chosenId && !completed &&
+            {!chosenId && !completed && <>
                 <div className="user-list">
                     {users.map(({ firstName, avatar, id, lastName }) => {
                         const isSubmitted = feedbackData[id]?.isSubmitted
-
                         return (
                             <div key={id} className="userCard">
                                 <div className="card-left">
@@ -140,18 +140,14 @@ const Users = ({ getStore }) => {
                                 </div>
                                 {
                                     isSubmitted
-                                        ? <Link to="/my-feedback">View Feedback</Link>
+                                        ? <button className="completed btn card-right"><Link to="/my-feedback">View Feedback</Link></button>
                                         : <button className="btn card-right" onClick={() => handleFirstClick(id)}>Leave Feedback</button>
-
                                 }
-                            </div>
-                        )
-                    })
-                    }
+                            </div>)
+                    })}
                 </div>
-            }
-            {
-                chosenId &&
+            </>}
+            {chosenId && <>
                 <div className="question-div">
                     <h2 className="question-label">{questions[questionNum].label}</h2>
                     <div className="feedback-container">
@@ -167,10 +163,10 @@ const Users = ({ getStore }) => {
                         <button onClick={handleNext}>Next</button>
                     </div>
                 </div>
-            }
-            {
-                completed &&
+            </>}
+            {completed && <>
                 <div className="user-list">
+                    <div className="info">List of incompleted users</div>
                     {users
                         .filter(({ id }) => !feedbackData[id]?.isSubmitted)
                         .map(({ firstName, avatar, id, lastName }) => {
@@ -186,6 +182,7 @@ const Users = ({ getStore }) => {
                         })
                     }
                 </div>
+            </>
             }
         </>
     )
@@ -198,6 +195,5 @@ export default Users
 
 
 
-//impostare isSubmitted da non fare rivedfere gli user completi nella lista iniziale in modo che a seconda del true o false compaia un bottone diverso
 
-//ultima pagina mostrare gli utienti per cui issubmitted è false filtrando quelli gia completi
+
