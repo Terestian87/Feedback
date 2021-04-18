@@ -9,7 +9,7 @@ const Text = ({ handleChoice, choice }) => {
                 className="textarea"
                 placeholder="Write something.."
                 value={choice}
-                onChange={handleChoice}
+                onChange={(e) => handleChoice(e.target.value)}
             />
         </div>
 

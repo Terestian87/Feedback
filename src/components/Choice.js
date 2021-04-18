@@ -1,5 +1,5 @@
 import React from 'react'
-
+import '../styles/choice.css'
 
 const Choice = ({ data, handleChoice, choice }) => {
 
@@ -7,21 +7,17 @@ const Choice = ({ data, handleChoice, choice }) => {
         <>
             {data.options.map(({ value, label }) => {
                 return (
-                    // <button
-                    //     // onClick={handleChoice}
-                    //     className="answer-btn"
-                    //     key={value}
-                    //     value={value}
-                    //     onClick={handleChoice}
-                    //     checed={choice === value}
-                    // >
-                    //     {label}
-                    // </button>
                     <div className="choice-div">
-                        <input onClick={handleChoice} value={value} className="radio-choice" type="radio" name="rating" id={`rate${value}`} cheched={choice === value} />
+                        <input
+                            onChange={() => handleChoice(value)}
+                            value={value}
+                            className="radio-choice"
+                            type="radio"
+                            name="rating"
+                            id={`rate${value}`}
+                            checked={choice === value} />
                         <label htmlFor={`rate${value}`}>{label} click me</label>
                     </div>
-
                 )
             })}
         </>
