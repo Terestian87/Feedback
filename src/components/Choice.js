@@ -7,7 +7,7 @@ const Choice = ({ data, handleChoice, choice }) => {
         <>
             {data.options.map(({ value, label }) => {
                 return (
-                    <div className="choice-div">
+                    <div className="choice-div" key={value}>
                         <input
                             onChange={() => handleChoice(value)}
                             value={value}
