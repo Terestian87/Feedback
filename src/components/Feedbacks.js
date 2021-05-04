@@ -91,13 +91,11 @@ export default Feedbacks
 
 
 
+
+
 //Object.keys(newFeedbacks)      ritorna array con keys come elementi ['asfdad', 'asdfasf'] 
 // Object.values(newFeedbacks)   stessa cosa con valori 
 // Object.entries(newFeedbacks)  ritorna un array di array [value, key]
-// console.table("this is object.keys" + Object.keys(feedbackData));
-// console.log("this is object.values" + Object.values(feedbackData));
-// console.dir("this is object.values   " + Object.values(feedbackData))
-// console.table(Object.entries(feedbackData))
 // console.log(users)
 /* prova di asnwerlist {answerList(chosenUser)} */
 /* {console.log(chosenUser)} */
