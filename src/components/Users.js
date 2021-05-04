@@ -6,7 +6,7 @@ import Text from './Text'
 import Choice from './Choice'
 //functional component
 
-const Users = ({ getStore, setUsers, setQuestions, users, questions }) => {
+const Users = ({ getStore, users, questions }) => {
 
 
     const [questionNum, setQuestionNum] = useState(0);
@@ -17,11 +17,6 @@ const Users = ({ getStore, setUsers, setQuestions, users, questions }) => {
     //choice handler
     const [choice, setChoice] = useState(null)
 
-    // componentDidMount functional style
-    useEffect(() => {
-        fetchUserData()
-        fetchQuestions()
-    }, [])
 
     useEffect(() => {
         getStore('feedback', async (store) => {
@@ -52,23 +47,7 @@ const Users = ({ getStore, setUsers, setQuestions, users, questions }) => {
         })
     }, [questionNum, chosenId, getStore])
 
-    console.log(feedbackData)
-
-    //Fetch data in asyn
-    const fetchUserData = async () => {
-        //take data from json in url and store in res const
-        const userRes = await fetch('https://frontend-exercise-api.netlify.app/.netlify/functions/server/users')
-        //make response usable
-        const userData = await userRes.json()
-        // call setUser hook to store response (data) in user
-        setUsers(userData)
-    }
-
-    const fetchQuestions = async () => {
-        const questionsRes = await fetch('https://frontend-exercise-api.netlify.app/.netlify/functions/server/questions')
-        const questionsData = await questionsRes.json()
-        setQuestions(questionsData)
-    }
+    // console.log(feedbackData)
 
     //conditional rendering on click
     const handleFirstClick = (id) => {

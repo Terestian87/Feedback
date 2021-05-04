@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { openDB } from 'idb';
 // components import
@@ -41,6 +41,11 @@ const App = () => {
         // call setUser hook to store response (data) in user
         setUsers(userData)
     }
+    // componentDidMount functional style
+    useEffect(() => {
+        fetchUserData()
+        fetchQuestions()
+    }, [])
 
     const fetchQuestions = async () => {
         const questionsRes = await fetch('https://frontend-exercise-api.netlify.app/.netlify/functions/server/questions')
@@ -54,10 +59,10 @@ const App = () => {
                 <Navbar />
                 <Switch>
                     <Route path="/" exact>
-                        <Users getStore={getStore} setUsers={setUsers} questions={questions} users={users} setQuestions={setQuestions} />
+                        <Users getStore={getStore} questions={questions} users={users} />
                     </Route>
                     <Route path="/my-feedback">
-                        <Feedbacks getStore={getStore} />
+                        <Feedbacks getStore={getStore} users={users} questions={questions} />
                     </Route>
                     <Route path='*'>
                         <div>404 not found</div>

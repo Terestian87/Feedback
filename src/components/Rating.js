@@ -10,9 +10,9 @@ const Rating = ({ handleChoice, choice }) => {
                     {
                         [...(new Array(10))].map((val, i) => {
                             const value = i + 1
-                            console.log(choice, value)
+
                             return (
-                                <label htmlFor={`rate${value}`} key={value} className={choice === value && 'selected'}>
+                                <label htmlFor={`rate${value}`} key={value} className={choice === value ? 'selected' : undefined}>
                                     <input value={value} className="radio" type="radio" name="rating" id={`rate${value}`} onChange={() => handleChoice(value)} />
                                     {value}
                                 </label>
