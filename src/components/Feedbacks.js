@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import '../styles/feedback.css'
+import Choice from './feedback/Choice'
+import Scale from './feedback/Scale'
+import Text from './feedback/Text'
 const Feedbacks = ({ getStore, users, questions }) => {
     // useEffect
     // leggere dati nel database
@@ -33,19 +36,6 @@ const Feedbacks = ({ getStore, users, questions }) => {
         })
     }, [getStore])
 
-    const Choice = ({ value }) => {
-
-        const arr = [...Array(3)].map((e, i) => <div className="box" key={i}></div>)
-
-        return <div className='daffuq'>{arr}</div>
-    }
-    const Scale = ({ value }) => {
-        return <progress min="1" max="10" value={value} className="value-box">{value}</progress>
-    }
-    const Text = ({ value }) => {
-        return <div className="text-box">{value}</div>
-    }
-
     const handleAnswer = {
         multipleChoice: ({ value }) => <Choice value={value} />,
         scale: ({ value }) => <Scale value={value} />,
@@ -71,12 +61,10 @@ const Feedbacks = ({ getStore, users, questions }) => {
                     const value = feedbackData[chosenUser]?.answers[index]
                     return (
                         <div className="answer-wrapper" key={index}>
-                            <div className="label-wrapper">{question.label}</div>
-                            <div className="bar-wrapper">
-                                <div className="box-wrapper">
-                                    {/* {console.log(handleAnswer[question.type])} */}
-                                    {handleAnswer[question.type]({ value })}
-                                </div>
+                            <div className="answer-left">{question.label}</div>
+                            <div className="answer-right">
+                                {/* {console.log(handleAnswer[question.type])} */}
+                                {handleAnswer[question.type]({ value })}
                             </div>
                         </div>
                     )
