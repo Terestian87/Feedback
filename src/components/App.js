@@ -26,8 +26,6 @@ const getStore = async (storeName, cb) => {
     }
 };
 
-
-
 const App = () => {
 
     const [users, setUsers] = useState([]);
