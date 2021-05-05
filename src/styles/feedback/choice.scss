@@ -1,0 +1,17 @@
+
+.box-container{
+    border:2px solid rgb(90, 238, 102);
+    width:90%;
+    height:30px;
+    margin:10px;   
+    display:flex;
+    flex-direction: row;
+    justify-content:space-around;
+}
+
+.choice-box-value{
+    width:30%;
+    height:100%;
+    background-color: rgba(200, 200, 200, 0.5);
+    padding:2px;
+}
