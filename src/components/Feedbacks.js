@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import '../styles/feedback.css'
+import '../styles/feedback.scss'
 import Choice from './feedback/Choice'
 import Scale from './feedback/Scale'
 import Text from './feedback/Text'
@@ -35,6 +35,8 @@ const Feedbacks = ({ getStore, users, questions }) => {
             setFeedbackData(newFeedbacks)
         })
     }, [getStore])
+
+
 
     const handleAnswer = {
         multipleChoice: ({ value }) => <Choice value={value} />,

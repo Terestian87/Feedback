@@ -1,5 +1,5 @@
 import React from 'react'
-import '../styles/choice.css'
+import '../styles/choice.scss'
 
 const Choice = ({ data, handleChoice, choice }) => {
 
@@ -16,7 +16,7 @@ const Choice = ({ data, handleChoice, choice }) => {
                             name="rating"
                             id={`rate${value}`}
                             checked={choice === value} />
-                        <label htmlFor={`rate${value}`}>{label} click me</label>
+                        <label htmlFor={`rate${value}`}>{label}</label>
                     </div>
                 )
             })}

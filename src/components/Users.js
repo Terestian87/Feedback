@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import '../styles/users.css'
+import '../styles/users.scss'
 import Rating from './Rating'
 import Text from './Text'
 import Choice from './Choice'

@@ -7,7 +7,7 @@ import Navbar from './Navbar';
 import Users from './Users';
 import Feedbacks from './Feedbacks'
 //style impoort
-import '../styles/app.css';
+import '../styles/app.scss';
 
 const dbName = 'honesto'
 
@@ -73,3 +73,8 @@ const App = () => {
 }
 
 export default App
+
+
+//pre tag per il texr
+//togliere tutti i css
+//altezza dinamica per testo

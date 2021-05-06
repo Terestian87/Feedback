@@ -1,5 +1,5 @@
 import React from 'react'
-import '../styles/rating.css'
+import '../styles/rating.scss'
 const Rating = ({ handleChoice, choice }) => {
 
 

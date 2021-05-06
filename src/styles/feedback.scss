@@ -19,17 +19,7 @@
     flex-direction: column;
     align-content: space-around;
 }
-.userFinto{
-    display:flex;
-    height:50px
-}
-.avatarFinto{
-    width: 30px;
-    height:30px;
-}
-.fullNameFinto{
-    margin:0 auto
-}
+
 .answer-wrapper{
     border:2px solid rgb(0, 204, 255);
     width:100%;
@@ -39,29 +29,17 @@
     padding:5px;
     display:flex;
    }
-.box-wrapper{
-    border:2px solid grey;
-    width:90%;
-    height:20px;
-    margin:10px;
-}
-.label-wrapper{
-width:70%;
-height:100%;
-border:2px solid red;
 
+
+
+.answer-left{
+    width:70%;
+    height:100%;
+    border:2px solid red;
 }
-.bar-wrapper{
+
+.answer-right{
     border:5px solid purple;
     
     width:35%
-}
-.value-bar{
-    width:100%;
-    height:20px;
-    
-}
-.box-value{
-    width:5px;
-    border:2px solid blue
 }
