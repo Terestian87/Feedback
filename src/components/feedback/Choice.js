@@ -15,6 +15,9 @@ const handleColor = (value, index) => {
 }
 
 const Choice = ({ value }) => {
+    // console.log(colors[value])
+
+
     // const [color, setColor] = useState('')
 
     // Tutte i blocchi sono di default grigi
@@ -23,7 +26,7 @@ const Choice = ({ value }) => {
 
     //.map(currentValue, index)
     const arr = [...Array(3)].map((e, i) => <div className={`standard-value ${handleColor(value, i)}`} key={i}></div>)
-    console.log(handleColor(value))
+    // console.log(handleColor(value))
     return <div className='box-container'>{arr}</div>
 }
 

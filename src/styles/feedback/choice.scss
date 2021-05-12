@@ -8,9 +8,19 @@
     justify-content:space-around;
 }
 
-.choice-box-value{
+.standard-value{
     width:30%;
     height:100%;
     background-color: rgba(200, 200, 200, 0.5);
     padding:2px;
+}
+
+.red{
+    background-color: red;
+}
+.green{
+    background-color: green;
+}
+.yellow{
+    background-color: yellow;
 }
