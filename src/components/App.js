@@ -76,5 +76,6 @@ export default App
 
 
 //pre tag per il texr
-//togliere tutti i css
+
 //altezza dinamica per testo
+//scale feedback behaviour
