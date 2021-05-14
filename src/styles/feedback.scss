@@ -1,18 +1,22 @@
 .feedback-list-container{
-    border:5px solid green;
+    border:1px solid lightgrey;
+    
     display:flex;
     flex-direction: row;
-    height:88vh;    
+    height:88vh;
+    width:85%; 
+    margin:0 auto;   
+    
 }
 .completed-user-list{
-    border:5px solid black;
+    
     display:flex;
     flex-direction: column; 
     width:30%;
     height:100%;
 }
 .answers-container{
-    border:5px solid blue;
+ 
     width:70%;
     height:100%;
     display:flex;
@@ -21,25 +25,41 @@
 }
 
 .answer-wrapper{
-    border:2px solid rgb(0, 204, 255);
+    border:1px solid lightgrey;
+    border-top:none;
     width:100%;
     height:100%;
-    margin-top: 5px;
-    margin-bottom: 5px;
     padding:5px;
     display:flex;
+    align-items: center;
    }
 
 
 
 .answer-left{
-    width:70%;
+    width:55%;
     height:100%;
-    border:2px solid red;
+    border-right:5px solid purple;
+    align-items:center;
 }
 
 .answer-right{
-    border:5px solid purple;
     
-    width:35%
+    width: 45%;
+}
+.user-btn{
+    display:flex;
+    align-items:center;
+    width:100%;
+    background-color:rgba(228, 228, 228, 0.767);
+    .avatar-btn{
+        border-radius:50%;
+        width: 75px;
+        margin-left:15px;
+    }
+    .fullName-btn{
+    margin:20px;
+    width:100%; 
+    font-weight: 700;    
+    }
 }

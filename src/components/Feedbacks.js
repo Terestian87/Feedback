@@ -51,9 +51,9 @@ const Feedbacks = ({ getStore, users, questions }) => {
                     users
                         .filter(({ id }) => feedbackData[id]?.isSubmitted)
                         .map(({ firstName, avatar, id, lastName }) => (
-                            <button key={id} className="user" onClick={e => { setChosenUser(id) }}>
-                                <img src={avatar} alt="avatar of user" className="avatar" />
-                                <div className="fullName">{firstName} {lastName}</div>
+                            <button key={id} className="user-btn" onClick={e => { setChosenUser(id) }}>
+                                <img src={avatar} alt="avatar of user" className="avatar-btn" />
+                                <div className="fullName-btn">{firstName} {lastName}</div>
                             </button>
                         ))
                 }
