@@ -30,6 +30,7 @@ const App = () => {
 
     const [users, setUsers] = useState([]);
     const [questions, setQuestions] = useState([]);
+
     //Fetch data in asyn
     const fetchUserData = async () => {
         //take data from json in url and store in res const
@@ -75,7 +76,14 @@ const App = () => {
 export default App
 
 
-//pre tag per il texr
 
+/*
+Assignment
+//pre tag per il texr
 //altezza dinamica per testo
-//scale feedback behaviour
+//share feedback button must go to home
+Done
+
+//scale feedback behaviour  VV
+
+*/
