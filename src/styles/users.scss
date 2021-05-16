@@ -4,15 +4,15 @@
     align-items:center;
 }
 .user-list{
-    border:2px solid black;
+    border:1px solid rgba(200, 200, 200, 0.5);
+    width:50%;
+    margin:3% auto;
+    
 }
 .userCard{
-    border : 3px solid red;
+    border:1px solid rgba(200, 200, 200, 0.5);
     padding:5px;
-    margin:5px;
     box-sizing: border-box;
-    width:75%;
-    margin:5px auto;
     justify-content: space-between;
     @include flex;
     .card-left{
@@ -29,12 +29,15 @@
 }
 .question-label{
     height:35px;
-    margin:0 auto;
+    margin:20px auto;
     padding:20px;
-    width:75%;
+    width:90%;
 }
 .question-div{
-    border:20px solid red;
+    border:1px solid rgba(200, 200, 200, 0.5);
+    width:70%;
+    margin:20px auto;
+
 }
 .feedback-container{
     width:75%;
