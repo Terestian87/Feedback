@@ -6,12 +6,12 @@ import Text from './Text'
 import Choice from './Choice'
 //functional component
 
-const Users = ({ getStore, users, questions }) => {
+const Users = ({ getStore, users, questions, completed, setCompleted }) => {
 
 
     const [questionNum, setQuestionNum] = useState(0);
     const [chosenId, setChosenId] = useState(null);
-    const [completed, setCompleted] = useState(false);
+
     const [feedbackData, setFeedbackData] = useState({});
 
     //choice handler

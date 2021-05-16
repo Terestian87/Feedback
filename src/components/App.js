@@ -27,7 +27,7 @@ const getStore = async (storeName, cb) => {
 };
 
 const App = () => {
-
+    const [completed, setCompleted] = useState(false);
     const [users, setUsers] = useState([]);
     const [questions, setQuestions] = useState([]);
 
@@ -55,10 +55,10 @@ const App = () => {
     return (
         <div className="app-div">
             <BrowserRouter>
-                <Navbar />
+                <Navbar completed={completed} setCompleted={setCompleted} />
                 <Switch>
                     <Route path="/" exact>
-                        <Users getStore={getStore} questions={questions} users={users} />
+                        <Users completed={completed} setCompleted={setCompleted} getStore={getStore} questions={questions} users={users} />
                     </Route>
                     <Route path="/my-feedback">
                         <Feedbacks getStore={getStore} users={users} questions={questions} />

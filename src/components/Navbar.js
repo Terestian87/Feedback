@@ -3,7 +3,10 @@ import { Link } from 'react-router-dom'
 
 import '../styles/navbar.scss'
 
-const Navbar = () => {
+const Navbar = ({ completed, setCompleted }) => {
+    const setToDefault = () => {
+        setCompleted(false)
+    }
     return (
         <div className="navbar-div">
             <nav className="navbar">
@@ -12,7 +15,7 @@ const Navbar = () => {
                 </div>
                 <div className="nav-right">
                     <ul>
-                        <li><Link onClick={() => window.location.reload()} className="nav-link" to="/">Share Feedback</Link></li>
+                        <li><Link onClick={setToDefault} className="nav-link" to="/">Share Feedback</Link></li>
                         <li><Link className="nav-link" to="my-feedback">Completed Feedbacks</Link></li>
                     </ul>
                 </div>
